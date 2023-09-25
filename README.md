@@ -1,2 +1,2 @@
 # Biblioeteca de practicas
-[practica1](./practica1.md)
+[Práctica 1](./practica1.md)
