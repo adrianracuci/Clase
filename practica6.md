@@ -17,7 +17,7 @@ Servidor LDAP:     192.168.82.114
 Lo primero que tenemos que hacer es installar ldap en nuestro servidor, para ello tenemos que ejecutar el siguiente comando:
 
 ```bash
-  sudo apt get install slapd ldap-utils
+  sudo apt get install slapd
 ```
 
 Una vez instalado tenemos que crear el usuario con el que queremos conectarnos al servidor Radius.
@@ -53,11 +53,25 @@ ldapadd -x -D cn=admin,dc=iesgrao,dc=es -W -f usr.ldif
 Para instalar el servicio freeradius tenemos que poner el siguiente comando
 
 ```bash
-sudo apt update
+sudo apt update && sudo apt upgrade
 --
-sudo apt upgrade
---
-sudo apt install freeradius
+sudo apt install freeradius ldap-utils
+```
+Ahora tenemos que configurar el módulo de LDAP:
+
+```bash
+cp /etc/freeradius/3.0/mods-available/ldap /etc/freeradius/3.0/mods-enabled/
+---
+nano /etc/freeradius/3.0/mods-enabled/ldap
+```
+
+En el archivo tenemos que modificar lo siguiente:
+
+```bash
+server = '192.168.82.114'
+identity = 'cn=admin,dc=iesgrao,dc=es'
+password = server
+base_dn = 'dc=iesgrao,dc=es'
 ```
 
 Ahora hace falta iniciar el servicio:
