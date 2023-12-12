@@ -48,3 +48,33 @@ Con la creación de este archivo podemos añadir ese usuario al la unidad organi
 ldapadd -x -D cn=admin,dc=iesgrao,dc=es -W -f usr.ldif
 ```
 
+## Configuración de servidor FreeRadius
+
+Para instalar el servicio freeradius tenemos que poner el siguiente comando
+
+```bash
+sudo apt update
+--
+sudo apt upgrade
+--
+sudo apt install freeradius
+```
+
+Ahora hace falta iniciar el servicio:
+
+```bash
+sudo service freeradius start
+```
+## Verificación
+
+Para hacer la verificación tenemos que activar freeradius con el siguiente comando y luego hacer peticiones de loggin, para ver que nos deja conectar:
+
+```bash
+freeradius -x
+```
+
+Ahora tenemos que hacer el loggin para ver que todo esta conectado:
+
+```bash
+radtest paco server 192.168.82.114 0 testing123
+``` 
